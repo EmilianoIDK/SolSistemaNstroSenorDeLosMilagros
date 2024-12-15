@@ -92,5 +92,111 @@ namespace CapaDatos
             return p;
 
         }
+
+        public Boolean InsertarProducto(entProducto p)
+        {
+            SqlCommand cmd = null;
+            Boolean Insertar = false;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
+                cmd = new SqlCommand("spInsertarProducto", cn);  //Consulta a la base de datos
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmNombre_producto", p.nombre);
+                cmd.Parameters.AddWithValue("@prmMarca", p.marca);
+                cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
+                cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
+                cmd.Parameters.AddWithValue("@prmDescripcion", p.vencimiento);
+                cn.Open();
+
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    Insertar = true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return Insertar;
+
+        }
+
+        public Boolean EditarProducto(entProducto p)
+        {
+            SqlCommand cmd = null;
+            Boolean Editar = false;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
+                cmd = new SqlCommand("spEditarProducto", cn);  //Consulta a la base de datos
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmID_producto", p.idProducto);
+                cmd.Parameters.AddWithValue("@prmNombre_producto", p.nombre);
+                cmd.Parameters.AddWithValue("@prmMarca", p.marca);
+                cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
+                cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
+                cmd.Parameters.AddWithValue("@prmDescripcion", p.vencimiento);
+                cn.Open();
+
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    Editar = true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return Editar;
+
+        }
+
+
+        public Boolean EliminarProducto(int idProducto)
+        {
+            SqlCommand cmd = null;
+            Boolean Eliminar = false;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
+                cmd = new SqlCommand("spEliminarProducto", cn);  //Consulta a la base de datos
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmID_producto", idProducto);
+                cn.Open();
+
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    Eliminar = true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return Eliminar;
+
+        }
     }
 }
