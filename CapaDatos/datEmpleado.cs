@@ -138,6 +138,67 @@ namespace CapaDatos
             return p;
         }
 
+        // Método para eliminar un empleado
+        public bool EliminarEmpleado(int idEmpleado)
+        {
+            SqlCommand cmd = null;
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    cmd = new SqlCommand("EliminarEmpleado", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
+
+                    cn.Open();
+
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    return filasAfectadas > 0; 
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        // Método para editar un empleado
+        public bool EditarEmpleado(entEmpleado empleado)
+        {
+            SqlCommand cmd = null;
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    cmd = new SqlCommand("EditarEmpleado", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Agrega los parámetros necesarios para editar el empleado
+                    cmd.Parameters.AddWithValue("@prmidEmpleado", empleado.idEmpleado);
+                    cmd.Parameters.AddWithValue("@prmNombres", empleado.nombres);
+                    cmd.Parameters.AddWithValue("@prmApellidos", empleado.apellidos);
+                    cmd.Parameters.AddWithValue("@prmDocumentoIdentidad", empleado.documentoIdentidad);
+                    cmd.Parameters.AddWithValue("@prmCelular", empleado.celular);
+                    cmd.Parameters.AddWithValue("@prmCorreo", empleado.correo);
+                    cmd.Parameters.AddWithValue("@prmUsuario", empleado.usuario);
+                    cmd.Parameters.AddWithValue("@prmContrasena", empleado.contrasena);
+                    cmd.Parameters.AddWithValue("@prmCargo", empleado.cargo);
+
+                    cn.Open();
+
+                    int filasAfectadas = cmd.ExecuteNonQuery(); 
+
+                    return filasAfectadas > 0; 
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex; 
+            }
+        }
 
         #endregion Metodos CRUD
     }
