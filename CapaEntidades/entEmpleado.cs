@@ -11,9 +11,12 @@ namespace CapaEntidades
         public int idEmpleado { get; set; }
         public string nombres { get; set; }
         public string apellidos { get; set; }
-        public string cargo { get; set; }
+        public string documentoIdentidad { get; set; }
         public string celular { get; set; }
-        public string telefono { get; set; }
+        public string correo { get; set; }
+        public string usuario { get; set; }
+        public string contrasena { get; set; }
+        public string cargo { get; set; }
         public Boolean estado { get; set; }
     }
 }

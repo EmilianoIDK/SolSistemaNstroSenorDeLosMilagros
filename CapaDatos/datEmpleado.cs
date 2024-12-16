@@ -44,8 +44,12 @@ namespace CapaDatos
                     e.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
                     e.nombres = Convert.ToString(dr["nombres"]);
                     e.apellidos = Convert.ToString(dr["apellidos"]);
+                    e.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
+                    e.celular = Convert.ToString(dr["celular"]);
+                    e.correo = Convert.ToString(dr["correo"]);
+                    e.usuario = Convert.ToString(dr["usuario"]);
+                    e.contrasena = Convert.ToString(dr["contrasena"]);
                     e.cargo = Convert.ToString(dr["cargo"]);
-                    e.telefono = Convert.ToString(dr["telefono"]);
                     e.estado = Convert.ToBoolean(dr["estado"]);
                 }
 
@@ -69,7 +73,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("ListarEmpleados", cn);
+                cmd = new SqlCommand("ListarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -79,9 +83,13 @@ namespace CapaDatos
                     p.idEmpleado = Convert.ToInt32(dr["identEmpleado"]);
                     p.nombres = Convert.ToString(dr["nombre"]);
                     p.apellidos = Convert.ToString(dr["apellido"]);
-                    p.cargo = Convert.ToString(dr["cargo"]);
+                    p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
                     p.celular = Convert.ToString(dr["celular"]);
-                    p.telefono = Convert.ToString(dr["telefono"]);
+                    p.correo = Convert.ToString(dr["correo"]);
+                    p.usuario = Convert.ToString(dr["usuario"]); 
+                    p.contrasena = Convert.ToString(dr["contrasena"]); 
+                    p.cargo = Convert.ToString(dr["cargo"]);
+
 
                     lista.Add(p);
                 }
@@ -110,12 +118,15 @@ namespace CapaDatos
                 if (dr.Read())
                 {
                     p = new entEmpleado();
-                    p.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
+                    p.idEmpleado = Convert.ToInt32(dr["identEmpleado"]);
                     p.nombres = Convert.ToString(dr["nombre"]);
                     p.apellidos = Convert.ToString(dr["apellido"]);
-                    p.cargo = Convert.ToString(dr["cargo"]);
+                    p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
                     p.celular = Convert.ToString(dr["celular"]);
-                    p.telefono = Convert.ToString(dr["telefono"]);
+                    p.correo = Convert.ToString(dr["correo"]);
+                    p.usuario = Convert.ToString(dr["usuario"]);
+                    p.contrasena = Convert.ToString(dr["contrasena"]);
+                    p.cargo = Convert.ToString(dr["cargo"]);
                 }
                 cn.Close();
             }
@@ -126,6 +137,8 @@ namespace CapaDatos
 
             return p;
         }
+
+
         #endregion Metodos CRUD
     }
 }
