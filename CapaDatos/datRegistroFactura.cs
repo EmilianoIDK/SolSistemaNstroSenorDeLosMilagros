@@ -17,8 +17,8 @@ namespace CapaDatos
             List<entFactura> lista = new List<entFactura>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spListarComprobante", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("psListarFactura", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -52,14 +52,14 @@ namespace CapaDatos
 
 
 
-        public entFactura BuscarComprobante(int idComprobante)
+        public entFactura BuscarFactura(int idComprobante)
         {
             SqlCommand cmd = null;
             entFactura p = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spBuscarComprobante", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("psBuscarFactura", cn); 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmidComprobante", idComprobante);
                 cn.Open();

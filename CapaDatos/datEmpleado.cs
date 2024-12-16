@@ -31,7 +31,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base dde datos
-                cmd = new SqlCommand("Verificar_Inicio_Sesion", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("psVerificar_Inicio_Sesion", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmUsuario", usuario);
                 cmd.Parameters.AddWithValue("@prmContrasena", contrasena);
@@ -73,7 +73,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("ListarEmpleado", cn);
+                cmd = new SqlCommand("psListarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -110,7 +110,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("BuscarEmpleado", cn);
+                cmd = new SqlCommand("psBuscarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
                 cn.Open();
@@ -147,7 +147,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("EliminarEmpleado", cn);
+                    cmd = new SqlCommand("osEliminarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
 
@@ -173,7 +173,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("EditarEmpleado", cn);
+                    cmd = new SqlCommand("psEditarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     // Agrega los parámetros necesarios para editar el empleado
