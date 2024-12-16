@@ -147,7 +147,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("osEliminarEmpleado", cn);
+                    cmd = new SqlCommand("psEliminarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
 
