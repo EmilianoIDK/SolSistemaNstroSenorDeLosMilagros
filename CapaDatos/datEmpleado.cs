@@ -41,7 +41,7 @@ namespace CapaDatos
                 if (dr.Read())
                 {
                     e = new entEmpleado();
-                    e.idEmpleado = Convert.ToInt32(dr["id_Empleado"]);
+                    e.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
                     e.nombres = Convert.ToString(dr["nombres"]);
                     e.apellidos = Convert.ToString(dr["apellidos"]);
                     e.cargo = Convert.ToString(dr["cargo"]);
@@ -59,8 +59,72 @@ namespace CapaDatos
                 cmd.Connection.Close();
             }
 
-
             return e;
+        }
+
+        public List<entEmpleado> ListarEmpleado()
+        {
+            SqlCommand cmd = null;
+            List<entEmpleado> lista = new List<entEmpleado>();
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("ListarEmpleados", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    entEmpleado p = new entEmpleado();
+                    p.idEmpleado = Convert.ToInt32(dr["identEmpleado"]);
+                    p.nombres = Convert.ToString(dr["nombre"]);
+                    p.apellidos = Convert.ToString(dr["apellido"]);
+                    p.cargo = Convert.ToString(dr["cargo"]);
+                    p.celular = Convert.ToString(dr["celular"]);
+                    p.telefono = Convert.ToString(dr["telefono"]);
+
+                    lista.Add(p);
+                }
+                cn.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+            return lista;
+        }
+
+        public entEmpleado BuscarEmpleado(int idEmpleado)
+        {
+            SqlCommand cmd = null;
+            entEmpleado p = null;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("BuscarEmpleado", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    p = new entEmpleado();
+                    p.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
+                    p.nombres = Convert.ToString(dr["nombre"]);
+                    p.apellidos = Convert.ToString(dr["apellido"]);
+                    p.cargo = Convert.ToString(dr["cargo"]);
+                    p.celular = Convert.ToString(dr["celular"]);
+                    p.telefono = Convert.ToString(dr["telefono"]);
+                }
+                cn.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+            return p;
         }
         #endregion Metodos CRUD
     }

@@ -9,7 +9,7 @@ using CapaEntidades;
 
 namespace CapaDatos
 {
-    public class datComprobantePago
+    public class datRegistroFactura
     {
         public List<entFactura> ListarComprobante()
         {
