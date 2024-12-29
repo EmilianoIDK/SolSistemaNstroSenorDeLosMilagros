@@ -16,7 +16,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>Inico de Sesión</title>
 
     <!-- Fontfaces CSS-->
     <link href="~/Bootstrap/css/font-face.css" rel="stylesheet" media="all">
@@ -54,14 +54,15 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="/Intranet/Iniciosesion" method="post">
+                            <form method="post" action="~/Controllers/IntranetContoller/InicioSesion">
+                                <p class="alert-danger">@ViewBag.mensaje</p>
                                 <div class="form-group">
                                     <label>Usuario:</label>
-                                    <input class="au-input au-input--full"  name="txtusuario" placeholder="Usuario">
+                                    <input class="au-input au-input--full" name="txtusuario" placeholder="Usuario">
                                 </div>
                                 <div class="form-group">
-                                    <label>Contraseña</label>
-                                    <input class="au-input au-input--full" type="password" name="txtcontrasena" placeholder="123456789">
+                                    <label>Contraseña:</label>
+                                    <input class="au-input au-input--full" type="password" name="txtcontrasena" placeholder="Contraseña">
                                 </div>
                                 <div class="login-checkbox">
                                 </div>
