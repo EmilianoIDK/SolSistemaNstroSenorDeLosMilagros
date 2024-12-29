@@ -24,14 +24,14 @@ namespace CapaDatos
         #endregion Singleton
 
         #region Metodos CRUD
-        public entEmpleado Verificar_Inicio_Sesion(String usuario, String contrasena)
+        public entEmpleado VerificarEmpleado(String usuario, String contrasena)
         {
             entEmpleado e = null;
             SqlCommand cmd = null;
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base dde datos
-                cmd = new SqlCommand("psVerificar_Inicio_Sesion", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("psVerificarEmpleado", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmUsuario", usuario);
                 cmd.Parameters.AddWithValue("@prmContrasena", contrasena);
