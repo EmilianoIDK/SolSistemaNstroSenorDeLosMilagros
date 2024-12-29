@@ -11,7 +11,7 @@ namespace CapaDatos
 {
     public class datRegistroFactura
     {
-        public List<entFactura> ListarComprobante()
+        public List<entFactura> ListarFactura()
         {
             SqlCommand cmd = null;
             List<entFactura> lista = new List<entFactura>();
@@ -91,14 +91,14 @@ namespace CapaDatos
 
         }
 
-        public Boolean InsertarComprobante(entFactura p)
+        public Boolean InsertarFactura(entFactura p)
         {
             SqlCommand cmd = null;
             Boolean Insertar = false;
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spInsertarComprobante", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("spInsertarFactura", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmFecha", p.fecha);
                 cmd.Parameters.AddWithValue("@prmTotal", p.total);
@@ -124,16 +124,16 @@ namespace CapaDatos
 
         }
 
-        public Boolean EditarComprobante(entFactura p)
+        public Boolean EditarFactura(entFactura p)
         {
             SqlCommand cmd = null;
             Boolean Editar = false;
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEditarComprobante", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("spEditarFactura", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmID_Comprobante", p.id_Factura);
+                cmd.Parameters.AddWithValue("@prmID_Factura", p.id_Factura);
                 cmd.Parameters.AddWithValue("@prmID_Empresa", p.idEmpresa);
                 cmd.Parameters.AddWithValue("@prmID_Cliente", p.idCliente);
                 cmd.Parameters.AddWithValue("@prmFecha", p.fecha);
@@ -161,16 +161,16 @@ namespace CapaDatos
         }
 
 
-        public Boolean EliminarComprobante(int idComprobante)
+        public Boolean EliminarFactura(int idComprobante)
         {
             SqlCommand cmd = null;
             Boolean Eliminar = false;
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEliminarComprobante", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("spEliminarFactura", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmID_Comprobante", idComprobante);
+                cmd.Parameters.AddWithValue("@prmID_Factura", idComprobante);
                 cn.Open();
 
                 int i = cmd.ExecuteNonQuery();
