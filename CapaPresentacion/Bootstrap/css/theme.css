@@ -2636,6 +2636,7 @@ section {
 
 .header3-wrap .header__navbar {
     width: 100%;
+    te
     position: absolute;
     left: 50%;
     -webkit-transform: translateX(-50%);

@@ -31,7 +31,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base dde datos
-                cmd = new SqlCommand("psVerificar_Inicio_Sesion", cn);  //Consulta a la base de datos
+                cmd = new SqlCommand("VerificarEmpleado", cn);  //Consulta a la base de datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmUsuario", usuario);
                 cmd.Parameters.AddWithValue("@prmContrasena", contrasena);
@@ -86,8 +86,8 @@ namespace CapaDatos
                     p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
                     p.celular = Convert.ToString(dr["celular"]);
                     p.correo = Convert.ToString(dr["correo"]);
-                    p.usuario = Convert.ToString(dr["usuario"]); 
-                    p.contrasena = Convert.ToString(dr["contrasena"]); 
+                    p.usuario = Convert.ToString(dr["usuario"]);
+                    p.contrasena = Convert.ToString(dr["contrasena"]);
                     p.cargo = Convert.ToString(dr["cargo"]);
 
 
@@ -139,7 +139,7 @@ namespace CapaDatos
         }
 
         // Método para eliminar un empleado
-        public bool EliminarEmpleado(int idEmpleado)
+        public Boolean EliminarEmpleado(int idEmpleado)
         {
             SqlCommand cmd = null;
 
@@ -155,7 +155,7 @@ namespace CapaDatos
 
                     int filasAfectadas = cmd.ExecuteNonQuery();
 
-                    return filasAfectadas > 0; 
+                    return filasAfectadas > 0;
                 }
             }
             catch (SqlException ex)
@@ -165,7 +165,7 @@ namespace CapaDatos
         }
 
         // Método para editar un empleado
-        public bool EditarEmpleado(entEmpleado empleado)
+        public Boolean EditarEmpleado(entEmpleado empleado)
         {
             SqlCommand cmd = null;
 
@@ -189,17 +189,54 @@ namespace CapaDatos
 
                     cn.Open();
 
-                    int filasAfectadas = cmd.ExecuteNonQuery(); 
+                    int filasAfectadas = cmd.ExecuteNonQuery();
 
-                    return filasAfectadas > 0; 
+                    return filasAfectadas > 0;
                 }
             }
             catch (SqlException ex)
             {
-                throw ex; 
+                throw ex;
             }
+        }
+
+        public Boolean InsertarEmpleado(entEmpleado e)
+        {
+            SqlCommand cmd = null;
+            Boolean Insertar = false;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
+                cmd = new SqlCommand("spInsertarEmpleado", cn);  //Consulta a la base de datos
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmnombres", e.nombres);
+                cmd.Parameters.AddWithValue("@prmapellidos", e.apellidos);
+                cmd.Parameters.AddWithValue("@prmcorreo", e.correo);
+                cmd.Parameters.AddWithValue("@prmusuario", e.usuario);
+                cmd.Parameters.AddWithValue("@prmcontrasena", e.contrasena);
+                cmd.Parameters.AddWithValue("@prmcargo", e.cargo);
+                cn.Open();
+
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    Insertar = true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return Insertar;
         }
 
         #endregion Metodos CRUD
     }
+    
 }
