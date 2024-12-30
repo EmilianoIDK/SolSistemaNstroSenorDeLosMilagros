@@ -142,6 +142,8 @@
     <Content Include="Bootstrap\images\icon\logo-mini.png" />
     <Content Include="Bootstrap\images\icon\logo-white.png" />
     <Content Include="Bootstrap\images\icon\logo.png" />
+    <Content Include="Bootstrap\images\icon\Rlogo-White.jpg" />
+    <Content Include="Bootstrap\images\icon\Rlogo.png" />
     <Content Include="Bootstrap\images\icon\Untitled-1.jpg" />
     <Content Include="Bootstrap\js\bootstrap-datetimepicker.js" />
     <Content Include="Bootstrap\js\main.js" />

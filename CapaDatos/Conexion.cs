@@ -25,17 +25,7 @@ namespace CapaDatos
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=LAPTOP-C8GMATIL\\SQL_EXPRESS; Initial Catalog=DBNstroSenorDeLosMilagros; Integrated Security=True";
-            
-            try
-            {
-                cn.Open(); // Intenta abrir la conexión
-                Console.WriteLine("Conexión exitosa");
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error al conectar a la base de datos: " + ex.Message);
-            }
+            cn.ConnectionString = "Data Source=DESKTOP-ER1TIJ4\\SQLEXPRESS; Initial Catalog=DBNstroSenorDeLosMilagros; Integrated Security=True";
 
             return cn;
         }

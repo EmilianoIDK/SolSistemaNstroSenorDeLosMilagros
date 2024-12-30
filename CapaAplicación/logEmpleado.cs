@@ -23,18 +23,7 @@ namespace CapaAplicación
         #endregion singleton
 
         #region metodos
-        public entEmpleado VerificarEmpleado(String Usuario, String Contrasena)
-        {
-            try
-            {
-                return datEmpleado.Instancia.VerificarEmpleado(Usuario, Contrasena);
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-        }
         public List<entEmpleado> ListarEmpleado()
         {
             try
@@ -43,6 +32,19 @@ namespace CapaAplicación
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        public entEmpleado Verificar_Inicio_Sesion(String Usuario, String Contrasena)
+        {
+            try
+            {
+                return datEmpleado.Instancia.Verificar_Inicio_Sesion(Usuario, Contrasena);
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
         }
@@ -57,6 +59,7 @@ namespace CapaAplicación
             {
                 throw ex;
             }
+
         }
 
         public Boolean InsertarEmpleado(entEmpleado p)
@@ -69,6 +72,7 @@ namespace CapaAplicación
             {
                 throw ex;
             }
+
         }
 
         public Boolean EditarEmpleado(entEmpleado e)
@@ -76,7 +80,6 @@ namespace CapaAplicación
             try
             {
                 return datEmpleado.Instancia.EditarEmpleado(e);
-
             }
             catch (Exception ex)
             {
@@ -94,8 +97,9 @@ namespace CapaAplicación
             {
                 throw ex;
             }
+
         }
+
         #endregion metodos
     }
 }
-        
