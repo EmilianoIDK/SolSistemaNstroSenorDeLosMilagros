@@ -131,6 +131,7 @@
     <Content Include="Bootstrap\css\theme.css" />
     <Content Include="Bootstrap\images\bg-title-01.jpg" />
     <Content Include="Bootstrap\images\bg-title-02.jpg" />
+    <Content Include="Bootstrap\images\icon\avatar-01.jpeg" />
     <Content Include="Bootstrap\images\icon\avatar-01.jpg" />
     <Content Include="Bootstrap\images\icon\avatar-02.jpg" />
     <Content Include="Bootstrap\images\icon\avatar-03.jpg" />
@@ -141,7 +142,10 @@
     <Content Include="Bootstrap\images\icon\logo-blue.png" />
     <Content Include="Bootstrap\images\icon\logo-mini.png" />
     <Content Include="Bootstrap\images\icon\logo-white.png" />
+    <Content Include="Bootstrap\images\icon\Logo.jpg" />
     <Content Include="Bootstrap\images\icon\logo.png" />
+    <Content Include="Bootstrap\images\icon\LogoSDM.jpeg" />
+    <Content Include="Bootstrap\images\icon\PortadaMenu.jpg" />
     <Content Include="Bootstrap\images\icon\Rlogo-White.jpg" />
     <Content Include="Bootstrap\images\icon\Rlogo.png" />
     <Content Include="Bootstrap\images\icon\Untitled-1.jpg" />
