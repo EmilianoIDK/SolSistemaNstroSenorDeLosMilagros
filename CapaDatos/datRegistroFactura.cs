@@ -97,8 +97,8 @@ namespace CapaDatos
             Boolean Insertar = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spInsertarFactura", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spInsertarFactura", cn); 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmFecha", p.fecha);
                 cmd.Parameters.AddWithValue("@prmTotal", p.total);
@@ -130,8 +130,8 @@ namespace CapaDatos
             Boolean Editar = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEditarFactura", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spEditarFactura", cn);  
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmID_Factura", p.id_Factura);
                 cmd.Parameters.AddWithValue("@prmID_Empresa", p.idEmpresa);
@@ -167,8 +167,8 @@ namespace CapaDatos
             Boolean Eliminar = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEliminarFactura", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spEliminarFactura", cn); 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmID_Factura", idComprobante);
                 cn.Open();

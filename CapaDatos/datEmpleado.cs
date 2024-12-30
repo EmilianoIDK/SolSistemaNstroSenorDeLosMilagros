@@ -24,6 +24,7 @@ namespace CapaDatos
         #endregion Singleton
 
         #region Metodos CRUD
+        // Método para verificar inicio sesion
         public entEmpleado Verificar_Inicio_Sesion(String usuario, String contrasena)
         {
             entEmpleado e = null;
@@ -65,7 +66,7 @@ namespace CapaDatos
 
             return e;
         }
-
+        // Método para listar un empleado
         public List<entEmpleado> ListarEmpleado()
         {
             SqlCommand cmd = null;
@@ -102,7 +103,7 @@ namespace CapaDatos
 
             return lista;
         }
-
+        // Método para buscar un empleado
         public entEmpleado BuscarEmpleado(int idEmpleado)
         {
             SqlCommand cmd = null;
@@ -176,7 +177,6 @@ namespace CapaDatos
                     cmd = new SqlCommand("psEditarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Agrega los parámetros necesarios para editar el empleado
                     cmd.Parameters.AddWithValue("@prmidEmpleado", empleado.idEmpleado);
                     cmd.Parameters.AddWithValue("@prmNombres", empleado.nombres);
                     cmd.Parameters.AddWithValue("@prmApellidos", empleado.apellidos);
@@ -199,15 +199,15 @@ namespace CapaDatos
                 throw ex;
             }
         }
-
+        // Método para insertar un empleado
         public Boolean InsertarEmpleado(entEmpleado e)
         {
             SqlCommand cmd = null;
             Boolean Insertar = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spInsertarEmpleado", cn);  //Consulta a la base de datos
+                SqlConnection cn = Conexion.Instancia.Conectar(); 
+                cmd = new SqlCommand("spInsertarEmpleado", cn);  
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmnombres", e.nombres);
                 cmd.Parameters.AddWithValue("@prmapellidos", e.apellidos);
@@ -235,7 +235,6 @@ namespace CapaDatos
 
             return Insertar;
         }
-
         #endregion Metodos CRUD
     }
 
