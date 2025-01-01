@@ -13,9 +13,10 @@ namespace CapaPresentacion.Controllers
         [HttpGet]
         public ActionResult InicioSesion(String msg)
         {
-            Session["Empleado"] = null;
-            ViewBag.mensaje = msg;
-            return View();
+         
+                Session["Empleado"] = null;
+                ViewBag.mensaje = msg;
+                return View();
         }
 
         [HttpPost]
@@ -41,9 +42,13 @@ namespace CapaPresentacion.Controllers
                 return RedirectToAction("InicioSesion", "Intranet", new { msg = ex.Message });
             }
         }
+
+        [Filtro.SesionIntranetController]
         public ActionResult MenuPrincipal()
         {
-            return View();
+            
+                return View();
+            
         }
     }
 }
