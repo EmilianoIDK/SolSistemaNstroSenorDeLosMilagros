@@ -112,7 +112,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("psBuscarEmpleado", cn);
+                cmd = new SqlCommand("BuscarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
                 cn.Open();
@@ -120,15 +120,16 @@ namespace CapaDatos
                 if (dr.Read())
                 {
                     p = new entEmpleado();
-                    p.idEmpleado = Convert.ToInt32(dr["identEmpleado"]);
-                    p.nombres = Convert.ToString(dr["nombre"]);
-                    p.apellidos = Convert.ToString(dr["apellido"]);
+                    p.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
+                    p.nombres = Convert.ToString(dr["nombres"]);
+                    p.apellidos = Convert.ToString(dr["apellidos"]);
                     p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
                     p.celular = Convert.ToString(dr["celular"]);
                     p.correo = Convert.ToString(dr["correo"]);
                     p.usuario = Convert.ToString(dr["usuario"]);
                     p.contrasena = Convert.ToString(dr["contrasena"]);
                     p.cargo = Convert.ToString(dr["cargo"]);
+                    p.estado = Convert.ToBoolean(dr["estado"]);
                 }
                 cn.Close();
             }
@@ -149,7 +150,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("EliminarEmpleado", cn);
+                    cmd = new SqlCommand("Eliminar Empleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
 
@@ -177,7 +178,6 @@ namespace CapaDatos
                 {
                     cmd = new SqlCommand("psEditarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@prmidEmpleado", empleado.idEmpleado);
                     cmd.Parameters.AddWithValue("@prmNombres", empleado.nombres);
                     cmd.Parameters.AddWithValue("@prmApellidos", empleado.apellidos);

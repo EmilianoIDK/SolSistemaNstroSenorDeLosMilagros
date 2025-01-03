@@ -400,6 +400,7 @@
     <Content Include="Views\Intranet\MenuPrincipal.cshtml" />
     <Content Include="Views\Empleado\Lista.cshtml" />
     <Content Include="Views\Empleado\Insertar.cshtml" />
+    <Content Include="Views\Empleado\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

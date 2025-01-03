@@ -31,30 +31,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
-        <tr class="tr-shadow">
-            <td class="desc">@item.idEmpleado</td>
-            <td class="desc">@item.nombres</td>
-            <td class="desc">@item.apellidos</td>
-            <td class="desc">@item.documentoIdentidad</td>
-            <td class="desc">@item.celular</td>
-            <td>
-            <span class="block-email">@item.correo</span>
-            </td>
-            <td class="desc">@item.cargo</td>
-            <td>
-                <div class="table-data-feature">
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Editar">
-                        <a class="item" href="@Url.Action("Editar", "Empleado")"><i class="zmdi zmdi-edit"></i></a>
-                    </button>
-                    
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Elminar">
-                            <a class="item" href="@Url.Action("Eliminar","Empleado")"><i class="zmdi zmdi-delete"></i></a>
-                        </button>
-                </div>
-            </td>
-        </tr>
-            <tr class="spacer"></tr>
+            @foreach (var item in Model)
+            {
+                <tr class="tr-shadow">
+                    <td class="desc">@item.idEmpleado</td>
+                    <td class="desc">@item.nombres</td>
+                    <td class="desc">@item.apellidos</td>
+                    <td class="desc">@item.documentoIdentidad</td>
+                    <td class="desc">@item.celular</td>
+                    <td>
+                        <span class="block-email">@item.correo</span>
+                    </td>
+                    <td class="desc">@item.cargo</td>
+                    <td>
+                        <div class="table-data-feature">
+                            <button class="item" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <a class="item" href="@Url.Action("Editar","Empleado", new { idEmpleado = item.idEmpleado })"><i class="zmdi zmdi-edit"></i></a>
+                            </button>
+
+                            <button class="item" data-toggle="tooltip" data-placement="top" title="Elminar">
+                                <a class="item" href="@Url.Action("Eliminar","Empleado", new { idEmpleado = item.idEmpleado })"><i class="zmdi zmdi-delete"></i></a>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="spacer"></tr>
             }
         </tbody>
     </table>

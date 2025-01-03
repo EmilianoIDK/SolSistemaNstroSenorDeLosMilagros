@@ -1,0 +1,94 @@
+﻿@model CapaEntidades.entEmpleado
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar</h2>
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">Formulario</div>
+        <div class="card-body card-block">
+            <form action="Editar" method="post" class="">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtNombres" name="txtNombres" placeholder="Nombres" class="form-control" value="@Model.nombres">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtApellidos" name="txtApellidos" placeholder="Apellidos" class="form-control" value="@Model.apellidos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="number" id="txtDni" name="txtDni" placeholder="DNI" class="form-control" value="@Model.documentoIdentidad">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-mobile-phone"></i>
+                        </div>
+                        <input type="number" id="txtCelular" name="txtCelular" placeholder="Celular" class="form-control" value="@Model.celular">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-mail-forward"></i>
+                        </div>
+                        <input type="email" id="txtCorreo" name="txtCorreo" placeholder="Correo" class="form-control" value="@Model.correo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" class="form-control" value="@Model.usuario">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="password" id="txtContrasena" name="txtContrasena" placeholder="Contraseña" class="form-control" value="@Model.contrasena">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtCargo" name="txtCargo" placeholder="Cargo" class="form-control" value="@Model.cargo">
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Aceptar
+                    </button>
+                    <button type="reset">
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Empleado")"><i class="fa fa-ban"></i> Cancelar</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
