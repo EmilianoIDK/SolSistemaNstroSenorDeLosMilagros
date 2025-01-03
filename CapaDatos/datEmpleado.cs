@@ -74,22 +74,23 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("psListarEmpleado", cn);
+                cmd = new SqlCommand("spListarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     entEmpleado p = new entEmpleado();
-                    p.idEmpleado = Convert.ToInt32(dr["identEmpleado"]);
-                    p.nombres = Convert.ToString(dr["nombre"]);
-                    p.apellidos = Convert.ToString(dr["apellido"]);
+                    p.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
+                    p.nombres = Convert.ToString(dr["nombres"]);
+                    p.apellidos = Convert.ToString(dr["apellidos"]);
                     p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
                     p.celular = Convert.ToString(dr["celular"]);
                     p.correo = Convert.ToString(dr["correo"]);
                     p.usuario = Convert.ToString(dr["usuario"]);
                     p.contrasena = Convert.ToString(dr["contrasena"]);
                     p.cargo = Convert.ToString(dr["cargo"]);
+                    p.estado = Convert.ToBoolean(dr["estado"]);
 
 
                     lista.Add(p);
@@ -148,7 +149,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("psEliminarEmpleado", cn);
+                    cmd = new SqlCommand("EliminarEmpleado", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidEmpleado", idEmpleado);
 
@@ -211,6 +212,8 @@ namespace CapaDatos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmnombres", e.nombres);
                 cmd.Parameters.AddWithValue("@prmapellidos", e.apellidos);
+                cmd.Parameters.AddWithValue("@prmaDNI", e.apellidos);
+                cmd.Parameters.AddWithValue("@prmcelular", e.apellidos);
                 cmd.Parameters.AddWithValue("@prmcorreo", e.correo);
                 cmd.Parameters.AddWithValue("@prmusuario", e.usuario);
                 cmd.Parameters.AddWithValue("@prmcontrasena", e.contrasena);

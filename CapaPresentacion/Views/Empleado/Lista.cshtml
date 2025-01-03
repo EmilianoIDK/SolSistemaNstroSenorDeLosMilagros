@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CapaEntidades.entEmpleado>
+
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Empleados</h2>
+
+
+
+<div class="table-data__tool">
+    <div class="table-data__tool-right">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+            <a class="au-btn au-btn-icon au-btn--green au-btn--small" href="@Url.Action("Insertar","Empleado")"><i class="zmdi zmdi-plus"></i>Agregar Empleado</a>
+        </button>
+    </div>
+</div>
+<div class="table-responsive table-responsive-data2">
+    <table class="table table-data2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Celular</th>
+                <th>Correo</th>
+                <th>Cargo</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+        <tr class="tr-shadow">
+            <td class="desc">@item.idEmpleado</td>
+            <td class="desc">@item.nombres</td>
+            <td class="desc">@item.apellidos</td>
+            <td class="desc">@item.documentoIdentidad</td>
+            <td class="desc">@item.celular</td>
+            <td>
+            <span class="block-email">@item.correo</span>
+            </td>
+            <td class="desc">@item.cargo</td>
+            <td>
+                <div class="table-data-feature">
+                    <button class="item" data-toggle="tooltip" data-placement="top" title="Editar">
+                        <a class="item" href="@Url.Action("Editar", "Empleado")"><i class="zmdi zmdi-edit"></i></a>
+                    </button>
+                    
+                    <button class="item" data-toggle="tooltip" data-placement="top" title="Elminar">
+                            <a class="item" href="@Url.Action("Eliminar","Empleado")"><i class="zmdi zmdi-delete"></i></a>
+                        </button>
+                </div>
+            </td>
+        </tr>
+            <tr class="spacer"></tr>
+            }
+        </tbody>
+    </table>
+</div>
