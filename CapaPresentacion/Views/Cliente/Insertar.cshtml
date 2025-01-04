@@ -1,25 +1,23 @@
 @model CapaEntidades.entCliente
 
 @{
-    ViewBag.Title = "Editar Cliente";
+    ViewBag.Title = "Insertar Cliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar Cliente</h2>
+<h2>Insertar Cliente</h2>
 
 <div class="col-lg-6">
     <div class="card">
         <div class="card-header">Formulario</div>
         <div class="card-body card-block">
-            <form action="Editar" method="post" class="">
-                @Html.HiddenFor(model => model.idCliente) <!-- Campo oculto para el ID del cliente -->
-
+            <form action="Insertar" method="post" class="">
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" id="txtNombres" name="txtNombres" placeholder="Nombres" class="form-control" value="@Model.nombres" required>
+                        <input type="text" id="txtNombres" name="txtNombres" placeholder="Nombres" class="form-control" required>
                     </div>
                 </div>
 
@@ -28,7 +26,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" id="txtApellidos" name="txtApellidos" placeholder="Apellidos" class="form-control" value="@Model.apellidos" required>
+                        <input type="text" id="txtApellidos" name="txtApellidos" placeholder="Apellidos" class="form-control" required>
                     </div>
                 </div>
 
@@ -37,7 +35,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-asterisk"></i>
                         </div>
-                        <input type="number" id="txtDni" name="txtDni" placeholder="DNI" class="form-control" value="@Model.dni" required>
+                        <input type="number" id="txtDni" name="txtDni" placeholder="DNI" class="form-control" required>
                     </div>
                 </div>
 
@@ -46,7 +44,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-mobile-phone"></i>
                         </div>
-                        <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" class="form-control" value="@Model.telefono" required>
+                        <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" class="form-control" required>
                     </div>
                 </div>
 
@@ -55,7 +53,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-mail-forward"></i>
                         </div>
-                        <input type="email" id="txtEmail" name="txtEmail" placeholder="Correo Electrónico" class="form-control" value="@Model.email" required>
+                        <input type="email" id="txtEmail" name="txtEmail" placeholder="Correo Electrónico" class="form-control" required>
                     </div>
                 </div>
 
