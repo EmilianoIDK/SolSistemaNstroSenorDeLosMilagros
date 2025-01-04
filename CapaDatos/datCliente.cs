@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using CapaEntidades;
 
 namespace CapaDatos
@@ -36,15 +39,16 @@ namespace CapaDatos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entCliente c = new entCliente();
-                    c.idCliente = Convert.ToInt32(dr["idCliente"]);
-                    c.nombres = Convert.ToString(dr["nombres"]);
-                    c.apellidos = Convert.ToString(dr["apellidos"]);
-                    c.dni = Convert.ToInt32(dr["dni"]);
-                    c.telefono = Convert.ToString(dr["telefono"]);
-                    c.email = Convert.ToString(dr["email"]);
-                    c.estado = Convert.ToBoolean(dr["estado"]);
-                    lista.Add(c);
+                    entCliente p = new entCliente();
+                    p.idCliente = Convert.ToInt32(dr["idCliente"]);
+                    p.dni = Convert.ToInt32(dr["dni"]);
+                    p.nombres = Convert.ToString(dr["nombres"]);
+                    p.apellidos = Convert.ToString(dr["apellidos"]);
+                    p.telefono = Convert.ToString(dr["telefono"]);
+                    p.email = Convert.ToString(dr["correo"]);
+                    p.estado = Convert.ToBoolean(dr["estado"]);
+
+                    lista.Add(p);
                 }
                 cn.Close();
             }
@@ -63,7 +67,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("BuscarCliente", cn);
+                cmd = new SqlCommand("spBuscarCliente", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmidCliente", idCliente);
                 cn.Open();
@@ -72,11 +76,11 @@ namespace CapaDatos
                 {
                     c = new entCliente();
                     c.idCliente = Convert.ToInt32(dr["idCliente"]);
+                    c.dni = Convert.ToInt32(dr["dni"]);
                     c.nombres = Convert.ToString(dr["nombres"]);
                     c.apellidos = Convert.ToString(dr["apellidos"]);
-                    c.dni = Convert.ToInt32(dr["dni"]);
                     c.telefono = Convert.ToString(dr["telefono"]);
-                    c.email = Convert.ToString(dr["email"]);
+                    c.email = Convert.ToString(dr["correo"]);
                     c.estado = Convert.ToBoolean(dr["estado"]);
                 }
                 cn.Close();
@@ -96,7 +100,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spInsertarCliente", cn); 
+                cmd = new SqlCommand("spInsertarCliente", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmNombres", cliente.nombres);
                 cmd.Parameters.AddWithValue("@prmApellidos", cliente.apellidos);
@@ -104,8 +108,11 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@prmTelefono", cliente.telefono);
                 cmd.Parameters.AddWithValue("@prmEmail", cliente.email);
                 cn.Open();
-                int filasAfectadas = cmd.ExecuteNonQuery();
-                insertar = filasAfectadas > 0; // Retorna true si se insertó correctamente
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    insertar = true;
+                }
             }
             catch (SqlException ex)
             {
@@ -113,7 +120,7 @@ namespace CapaDatos
             }
             finally
             {
-                    cmd.Connection.Close();
+                cmd.Connection.Close();
             }
             return insertar;
         }

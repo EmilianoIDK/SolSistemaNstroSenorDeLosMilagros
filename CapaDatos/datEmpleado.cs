@@ -92,7 +92,6 @@ namespace CapaDatos
                     p.cargo = Convert.ToString(dr["cargo"]);
                     p.estado = Convert.ToBoolean(dr["estado"]);
 
-
                     lista.Add(p);
                 }
                 cn.Close();
