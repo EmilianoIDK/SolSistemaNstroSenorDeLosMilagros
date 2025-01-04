@@ -12,6 +12,7 @@ namespace CapaPresentacion.Controllers
     {
         [Filtro.SesionIntranetController]
         [HttpGet]
+        //Lista 
         public ActionResult Lista(string msg)
         {
             try
@@ -28,6 +29,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
+        //Insertar
         public ActionResult Insertar(string msg)
         {
             try
@@ -74,6 +76,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
+        //Editar
         public ActionResult Editar(int idCliente)
         {
             try
@@ -121,6 +124,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
+        //Eliminar
         public ActionResult Eliminar(int idCliente)
         {
             try
