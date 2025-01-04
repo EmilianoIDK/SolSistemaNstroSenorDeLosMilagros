@@ -113,7 +113,6 @@ namespace CapaDatos
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
                     cmd.Connection.Close();
             }
             return insertar;
