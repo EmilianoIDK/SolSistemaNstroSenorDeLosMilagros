@@ -118,6 +118,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\IntranetController.cs" />
     <Compile Include="Filtro\SesionIntranetController.cs" />
@@ -401,6 +402,7 @@
     <Content Include="Views\Empleado\Lista.cshtml" />
     <Content Include="Views\Empleado\Insertar.cshtml" />
     <Content Include="Views\Empleado\Editar.cshtml" />
+    <Content Include="Views\Cliente\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
