@@ -93,7 +93,7 @@ namespace CapaDatos
         }
 
         // Método para insertar un cliente
-        public Boolean InsertarCliente(entCliente cliente)
+        public Boolean InsertarCliente(entCliente idCliente)
         {
             SqlCommand cmd = null;
             bool insertar = false;
@@ -102,11 +102,12 @@ namespace CapaDatos
                 SqlConnection cn = Conexion.Instancia.Conectar();
                 cmd = new SqlCommand("spInsertarCliente", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmNombres", cliente.nombres);
-                cmd.Parameters.AddWithValue("@prmApellidos", cliente.apellidos);
-                cmd.Parameters.AddWithValue("@prmDNI", cliente.dni);
-                cmd.Parameters.AddWithValue("@prmTelefono", cliente.telefono);
-                cmd.Parameters.AddWithValue("@prmEmail", cliente.email);
+                cmd.Parameters.AddWithValue("@prmNombres", idCliente.nombres);
+                cmd.Parameters.AddWithValue("@prmApellidos", idCliente.apellidos);
+                cmd.Parameters.AddWithValue("@prmCelular", idCliente.celular);
+                cmd.Parameters.AddWithValue("@prmDNI", idCliente.dni);
+                cmd.Parameters.AddWithValue("@prmTelefono", idCliente.telefono);
+                cmd.Parameters.AddWithValue("@prmCorreo", idCliente.email);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i > 0)
@@ -126,7 +127,7 @@ namespace CapaDatos
         }
 
         // Método para editar un cliente
-        public Boolean EditarCliente(entCliente cliente)
+        public Boolean EditarCliente(entCliente idCliente)
         {
             SqlCommand cmd = null;
             try
@@ -135,12 +136,11 @@ namespace CapaDatos
                 {
                     cmd = new SqlCommand("spEditarCliente", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmidCliente", cliente.idCliente);
-                    cmd.Parameters.AddWithValue("@prmNombres", cliente.nombres);
-                    cmd.Parameters.AddWithValue("@prmApellidos", cliente.apellidos);
-                    cmd.Parameters.AddWithValue("@prmDNI", cliente.dni);
-                    cmd.Parameters.AddWithValue("@prmTelefono", cliente.telefono);
-                    cmd.Parameters.AddWithValue("@prmEmail", cliente.email);
+                    cmd.Parameters.AddWithValue("@prmidCliente", idCliente.idCliente);
+                    cmd.Parameters.AddWithValue("@prmNombres", idCliente.nombres);
+                    cmd.Parameters.AddWithValue("@prmApellidos", idCliente.apellidos);
+                    cmd.Parameters.AddWithValue("@prmTelefono", idCliente.telefono);
+                    cmd.Parameters.AddWithValue("@prmCorreo", idCliente.email);
                     cn.Open();
                     int filasAfectadas = cmd.ExecuteNonQuery();
                     return filasAfectadas > 0; // Retorna true si se actualizó correctamente
@@ -160,7 +160,7 @@ namespace CapaDatos
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("EliminarCliente", cn);
+                    cmd = new SqlCommand("spEliminarCliente", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidCliente", idCliente);
                     cn.Open();

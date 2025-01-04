@@ -53,6 +53,7 @@ namespace CapaPresentacion.Controllers
                 entCliente c = new entCliente();
                 c.nombres = Convert.ToString(formulario["txtNombres"]);
                 c.apellidos = Convert.ToString(formulario["txtApellidos"]);
+                c.celular = Convert.ToString(formulario["txtCelular"]);
                 c.dni = Convert.ToInt32(formulario["txtDni"]);
                 c.telefono = Convert.ToString(formulario["txtTelefono"]);
                 c.email = Convert.ToString(formulario["txtEmail"]);
