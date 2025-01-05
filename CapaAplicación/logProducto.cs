@@ -21,15 +21,15 @@ namespace CapaAplicación
 
         #region metodos
 
-        public List<entProducto> ListarProducto()
+        public List<entProducto> ListarProductos()
         {
             try
             {
-                return datProducto.Instancia.ListarProducto();
+                return datProducto.Instancia.ListarProductos();
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex; // Considera manejar la excepción de manera más específica si es necesario.
             }
         }
 
@@ -45,7 +45,7 @@ namespace CapaAplicación
             }
         }
 
-        public Boolean InsertarProducto(entProducto p)
+        public bool InsertarProducto(entProducto p)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace CapaAplicación
             }
         }
 
-        public Boolean EditarProducto(entProducto p)
+        public bool EditarProducto(entProducto p)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace CapaAplicación
             }
         }
 
-        public Boolean EliminarProducto(int idProducto)
+        public bool EliminarProducto(int idProducto)
         {
             try
             {

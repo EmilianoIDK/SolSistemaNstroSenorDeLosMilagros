@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using CapaEntidades;
 
 namespace CapaDatos
 {
     public class datProducto
     {
-        public static object Instancia { get; set; }
+        #region Singleton
+        private static readonly datProducto _instancia = new datProducto();
+
+        public static datProducto Instancia => _instancia;
+        #endregion Singleton
 
         /// <summary>
         /// Lista todos los productos desde la base de datos.
@@ -17,7 +21,7 @@ namespace CapaDatos
         public List<entProducto> ListarProductos()
         {
             List<entProducto> lista = new List<entProducto>();
-            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 using (SqlCommand cmd = new SqlCommand("spListarProductos", cn))
                 {
@@ -53,7 +57,7 @@ namespace CapaDatos
         public entProducto BuscarProducto(int idProducto)
         {
             entProducto p = null;
-            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 using (SqlCommand cmd = new SqlCommand("spBuscarProducto", cn))
                 {
@@ -89,7 +93,7 @@ namespace CapaDatos
         public bool InsertarProducto(entProducto p)
         {
             bool insertar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 using (SqlCommand cmd = new SqlCommand("spInsertarProducto", cn))
                 {
@@ -117,12 +121,12 @@ namespace CapaDatos
         public bool EditarProducto(entProducto p)
         {
             bool editar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 using (SqlCommand cmd = new SqlCommand("spEditarProducto", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmIDProducto", p.idProducto);
+                    cmd.Parameters.AddWithValue("@prmID_producto", p.idProducto);
                     cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
                     cmd.Parameters.AddWithValue("@prmMarca", p.marca);
                     cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
@@ -146,7 +150,7 @@ namespace CapaDatos
         public bool EliminarProducto(int idProducto)
         {
             bool eliminar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 using (SqlCommand cmd = new SqlCommand("spEliminarProducto", cn))
                 {
