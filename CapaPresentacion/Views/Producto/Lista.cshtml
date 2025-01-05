@@ -1,0 +1,60 @@
+@model IEnumerable<CapaEntidades.entProducto>
+
+@{
+    ViewBag.Title = "Lista de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Productos</h2>
+
+<div class="table-data__tool">
+    <div class="table-data__tool-right">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+            <a class="au-btn au-btn-icon au-btn--green au-btn--small" href="@Url.Action("Insertar", "Producto")"><i class="zmdi zmdi-plus"></i>Agregar Producto</a>
+        </button>
+    </div>
+</div>
+
+<div class="table-responsive table-responsive-data2">
+    <table class="table table-data2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Vencimiento</th>
+                <th>Estado</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tr-shadow">
+                    <td class="desc">@item.idProducto</td>
+                    <td class="desc">@item.nombre</td>
+                    <td class="desc">@item.marca</td>
+                    <td class="desc">@item.precio.ToString("C", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="desc">@item.cantidad</td>
+                    <td class="desc">@item.vencimiento</td>
+                    <td class="desc">@((item.estado) ? "Activo" : "Inactivo")</td>
+                    <td>
+                        <div class="table-data-feature">
+                            <button class="item" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <a class="item" href="@Url.Action("Editar", "Producto", new { id = item.idProducto })"><i class="zmdi zmdi-edit"></i></a>
+                            </button>
+
+                            <button class="item" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                <a class="item" href="@Url.Action("Eliminar", "Producto", new { id = item.idProducto })"><i class="zmdi zmdi-delete"></i></a>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="spacer"></tr>
+ <!-- Espaciador entre filas -->
+            }
+        </tbody>
+    </table>
+</div>

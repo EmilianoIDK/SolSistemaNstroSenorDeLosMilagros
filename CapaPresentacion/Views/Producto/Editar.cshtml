@@ -1,0 +1,80 @@
+@model CapaEntidades.entProducto
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Producto</h2>
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">Formulario</div>
+        <div class="card-body card-block">
+            <form action="@Url.Action("Editar", "Producto")" method="post" class="">
+                @Html.HiddenFor(m => m.idProducto)
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-tag"></i>
+                        </div>
+                        <input type="text" id="txtNombre" name="nombre" placeholder="Nombre del Producto" class="form-control" value="@Model.nombre" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-industry"></i>
+                        </div>
+                        <input type="text" id="txtMarca" name="marca" placeholder="Marca" class="form-control" value="@Model.marca" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-dollar"></i>
+                        </div>
+                        <input type="number" id="txtPrecio" name="precio" placeholder="Precio" class="form-control" value="@Model.precio.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)" required step=".01">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-cubes"></i>
+                        </div>
+                        <input type="number" id="txtCantidad" name="cantidad" placeholder="Cantidad en Stock" class="form-control" value="@Model.cantidad.ToString()" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="date" id="txtVencimiento" name="vencimiento" placeholder="Fecha de Vencimiento" class="form-control" value="@Model.vencimiento" required>
+                    </div>
+                </div>
+
+                <!-- Estado del producto -->
+                <div class="form-group">
+                    <label for="chkEstado">Estado:</label>
+                    <input type="checkbox" id="chkEstado" name="estado" @(Model.estado ? "checked='checked'" : "") />
+                    Activo
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class='fa fa-dot-circle-o'></i> Aceptar
+                    </button>
+                    <a href="@Url.Action("Lista", "Producto")" class='btn btn-danger btn-sm'>
+                        <i class='fa fa-ban'></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

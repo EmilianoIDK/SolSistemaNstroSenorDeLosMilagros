@@ -1,202 +1,164 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using CapaEntidades;
 
 namespace CapaDatos
 {
     public class datProducto
     {
+        public static object Instancia { get; set; }
+
+        /// <summary>
+        /// Lista todos los productos desde la base de datos.
+        /// </summary>
+        /// <returns>Lista de entProducto.</returns>
         public List<entProducto> ListarProductos()
         {
-            SqlCommand cmd = null;
             List<entProducto> lista = new List<entProducto>();
-            try
+            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spListarProductos", cn);  //Consulta a la base de datos
-                cmd.CommandType = CommandType.StoredProcedure;
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlCommand cmd = new SqlCommand("spListarProductos", cn))
                 {
-                    entProducto p = new entProducto();
-                    p.idProducto = Convert.ToInt32(dr["idProducto"]);
-                    p.nombre = Convert.ToString(dr["nombreProducto"]);
-                    p.marca = Convert.ToString(dr["marca"]);
-                    p.cantidad = Convert.ToInt32(dr["cantidad"]);
-                    p.precio = Convert.ToDecimal(dr["precio"]);
-                    p.vencimiento = Convert.ToString(dr["descripcion"]);
-                    p.estado = Convert.ToBoolean(dr["estado"]);
-
-                    lista.Add(p);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            entProducto p = new entProducto
+                            {
+                                idProducto = Convert.ToInt32(dr["idProducto"]),
+                                nombre = Convert.ToString(dr["nombre"]),
+                                marca = Convert.ToString(dr["marca"]),
+                                cantidad = Convert.ToInt32(dr["cantidad"]),
+                                precio = Convert.ToDecimal(dr["precio"]),
+                                vencimiento = Convert.ToString(dr["vencimiento"]),
+                                estado = Convert.ToBoolean(dr["estado"])
+                            };
+                            lista.Add(p);
+                        }
+                    }
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-
             return lista;
-
         }
 
-
-
+        /// <summary>
+        /// Busca un producto por su ID.
+        /// </summary>
+        /// <param name="idProducto">ID del producto a buscar.</param>
+        /// <returns>Objeto entProducto si se encuentra, null en caso contrario.</returns>
         public entProducto BuscarProducto(int idProducto)
         {
-            SqlCommand cmd = null;
             entProducto p = null;
-            try
+            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spBuscarProducto", cn);  //Consulta a la base de datos
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                using (SqlCommand cmd = new SqlCommand("spBuscarProducto", cn))
                 {
-                    p = new entProducto();
-                    p.idProducto = Convert.ToInt32(dr["idProducto"]);
-                    p.nombre = Convert.ToString(dr["nombreProducto"]);
-                    p.marca = Convert.ToString(dr["marca"]);
-                    p.cantidad = Convert.ToInt32(dr["cantidad"]);
-                    p.precio = Convert.ToDecimal(dr["precio"]);
-                    p.vencimiento = Convert.ToString(dr["descripcion"]);
-                    p.estado = Convert.ToBoolean(dr["estado"]);
-
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            p = new entProducto
+                            {
+                                idProducto = Convert.ToInt32(dr["idProducto"]),
+                                nombre = Convert.ToString(dr["nombre"]),
+                                marca = Convert.ToString(dr["marca"]),
+                                cantidad = Convert.ToInt32(dr["cantidad"]),
+                                precio = Convert.ToDecimal(dr["precio"]),
+                                vencimiento = Convert.ToString(dr["vencimiento"]),
+                                estado = Convert.ToBoolean(dr["estado"])
+                            };
+                        }
+                    }
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-
             return p;
-
         }
 
-        public Boolean InsertarProducto(entProducto p)
+        /// <summary>
+        /// Inserta un nuevo producto en la base de datos.
+        /// </summary>
+        /// <param name="p">Objeto entProducto a insertar.</param>
+        /// <returns>true si se inserta correctamente, false en caso contrario.</returns>
+        public bool InsertarProducto(entProducto p)
         {
-            SqlCommand cmd = null;
-            Boolean Insertar = false;
-            try
+            bool insertar = false;
+            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spInsertarProducto", cn);  //Consulta a la base de datos
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmNombre_producto", p.nombre);
-                cmd.Parameters.AddWithValue("@prmMarca", p.marca);
-                cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
-                cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
-                cmd.Parameters.AddWithValue("@prmDescripcion", p.vencimiento);
-                cn.Open();
-
-                int i = cmd.ExecuteNonQuery();
-                if (i > 0)
+                using (SqlCommand cmd = new SqlCommand("spInsertarProducto", cn))
                 {
-                    Insertar = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
+                    cmd.Parameters.AddWithValue("@prmMarca", p.marca);
+                    cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
+                    cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
+                    cmd.Parameters.AddWithValue("@prmVencimiento", p.vencimiento);
+                    cmd.Parameters.AddWithValue("@prmEstado", p.estado);
+                    cn.Open();
+
+                    int i = cmd.ExecuteNonQuery();
+                    insertar = i > 0; // Si se afectaron filas, se considera que se insertó correctamente.
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-
-            return Insertar;
-
+            return insertar;
         }
 
-        public Boolean EditarProducto(entProducto p)
+        /// <summary>
+        /// Edita un producto existente en la base de datos.
+        /// </summary>
+        /// <param name="p">Objeto entProducto con los nuevos datos.</param>
+        /// <returns>true si se edita correctamente, false en caso contrario.</returns>
+        public bool EditarProducto(entProducto p)
         {
-            SqlCommand cmd = null;
-            Boolean Editar = false;
-            try
+            bool editar = false;
+            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEditarProducto", cn);  //Consulta a la base de datos
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmID_producto", p.idProducto);
-                cmd.Parameters.AddWithValue("@prmNombre_producto", p.nombre);
-                cmd.Parameters.AddWithValue("@prmMarca", p.marca);
-                cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
-                cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
-                cmd.Parameters.AddWithValue("@prmDescripcion", p.vencimiento);
-                cn.Open();
-
-                int i = cmd.ExecuteNonQuery();
-                if (i > 0)
+                using (SqlCommand cmd = new SqlCommand("spEditarProducto", cn))
                 {
-                    Editar = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmIDProducto", p.idProducto);
+                    cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
+                    cmd.Parameters.AddWithValue("@prmMarca", p.marca);
+                    cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
+                    cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
+                    cmd.Parameters.AddWithValue("@prmVencimiento", p.vencimiento);
+                    cmd.Parameters.AddWithValue("@prmEstado", p.estado);
+                    cn.Open();
+
+                    int i = cmd.ExecuteNonQuery();
+                    editar = i > 0; // Si se afectaron filas, se considera que se editó correctamente.
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-
-            return Editar;
-
+            return editar;
         }
 
-
-        public Boolean EliminarProducto(int idProducto)
+        /// <summary>
+        /// Elimina un producto por su ID.
+        /// </summary>
+        /// <param name="idProducto">ID del producto a eliminar.</param>
+        /// <returns>true si se elimina correctamente, false en caso contrario.</returns>
+        public bool EliminarProducto(int idProducto)
         {
-            SqlCommand cmd = null;
-            Boolean Eliminar = false;
-            try
+            bool eliminar = false;
+            using (SqlConnection cn = Conexion.Instancia.Conectar()) // Conexión a la base de datos
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); //Conexion a la base de datos
-                cmd = new SqlCommand("spEliminarProducto", cn);  //Consulta a la base de datos
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmID_producto", idProducto);
-                cn.Open();
-
-                int i = cmd.ExecuteNonQuery();
-                if (i > 0)
+                using (SqlCommand cmd = new SqlCommand("spEliminarProducto", cn))
                 {
-                    Eliminar = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmID_producto", idProducto);
+                    cn.Open();
+
+                    int i = cmd.ExecuteNonQuery();
+                    eliminar = i > 0; // Si se afectaron filas, se considera que se eliminó correctamente.
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-
-            }
-            finally
-            {
-                cmd.Connection.Close();
-            }
-
-            return Eliminar;
-
+            return eliminar;
         }
     }
 }
