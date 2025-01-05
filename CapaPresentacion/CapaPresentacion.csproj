@@ -129,7 +129,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bootstrap\css\styles.css" />
     <Content Include="Bootstrap\images\bg-title-01.jpg" />
     <Content Include="Bootstrap\images\bg-title-02.jpg" />
     <Content Include="Bootstrap\images\icon\avatar-01.jpeg" />
@@ -410,6 +409,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Bootstrap\css\" />
     <Folder Include="Models\" />
     <Folder Include="Views\SesionIntranet\" />
   </ItemGroup>
