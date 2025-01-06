@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace CapaDatos
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=LAPTOP-C8GMATIL\\SQL_EXPRESS; Initial Catalog=DBNstroSenorDeLosMilagros; Integrated Security=True";
+            cn.ConnectionString = "Data Source=DESKTOP-ER1TIJ4\\SQLEXPRESS; Initial Catalog=DBNstroSenorDeLosMilagros; Integrated Security=True";
             
             return cn;
         }
