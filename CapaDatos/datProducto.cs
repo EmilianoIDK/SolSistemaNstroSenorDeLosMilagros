@@ -115,7 +115,7 @@ namespace CapaDatos
                 using (SqlCommand cmd = new SqlCommand("spEditarProducto", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmID_producto", p.idProducto);
+                    cmd.Parameters.AddWithValue("@prmidProducto", p.idProducto);
                     cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
                     cmd.Parameters.AddWithValue("@prmMarca", p.marca);
                     cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
@@ -144,7 +144,7 @@ namespace CapaDatos
                 using (SqlCommand cmd = new SqlCommand("spEliminarProducto", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmID_producto", idProducto);
+                    cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
                     cn.Open();
 
                     int i = cmd.ExecuteNonQuery();
