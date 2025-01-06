@@ -69,40 +69,38 @@ namespace CapaDatos
         // Método para listar un empleado
         public List<entEmpleado> ListarEmpleado()
         {
-            SqlCommand cmd = null;
             List<entEmpleado> lista = new List<entEmpleado>();
-            try
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spListarEmpleado", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (SqlCommand cmd = new SqlCommand("spListarEmpleado", cn))
                 {
-                    entEmpleado p = new entEmpleado();
-                    p.idEmpleado = Convert.ToInt32(dr["idEmpleado"]);
-                    p.nombres = Convert.ToString(dr["nombres"]);
-                    p.apellidos = Convert.ToString(dr["apellidos"]);
-                    p.documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]);
-                    p.celular = Convert.ToString(dr["celular"]);
-                    p.correo = Convert.ToString(dr["correo"]);
-                    p.usuario = Convert.ToString(dr["usuario"]);
-                    p.contrasena = Convert.ToString(dr["contrasena"]);
-                    p.cargo = Convert.ToString(dr["cargo"]);
-                    p.estado = Convert.ToBoolean(dr["estado"]);
-
-                    lista.Add(p);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            entEmpleado p = new entEmpleado
+                            {
+                                idEmpleado = Convert.ToInt32(dr["idEmpleado"]),
+                                nombres = Convert.ToString(dr["nombres"]),
+                                apellidos = Convert.ToString(dr["apellidos"]),
+                                documentoIdentidad = Convert.ToString(dr["documentoIdentidad"]),
+                                celular = Convert.ToString(dr["celular"]),
+                                correo = Convert.ToString(dr["correo"]),
+                                usuario = Convert.ToString(dr["usuario"]),
+                                contrasena = Convert.ToString(dr["contrasena"]),
+                                cargo = Convert.ToString(dr["cargo"]),
+                                estado = Convert.ToBoolean(dr["estado"])
+                            };
+                            lista.Add(p);
+                        }
+                    }
                 }
-                cn.Close();
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-
             return lista;
         }
+
         // Método para buscar un empleado
         public entEmpleado BuscarEmpleado(int idEmpleado)
         {

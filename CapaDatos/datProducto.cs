@@ -14,10 +14,7 @@ namespace CapaDatos
         public static datProducto Instancia => _instancia;
         #endregion Singleton
 
-        /// <summary>
-        /// Lista todos los productos desde la base de datos.
-        /// </summary>
-        /// <returns>Lista de entProducto.</returns>
+     
         public List<entProducto> ListarProductos()
         {
             List<entProducto> lista = new List<entProducto>();
@@ -49,11 +46,7 @@ namespace CapaDatos
             return lista;
         }
 
-        /// <summary>
-        /// Busca un producto por su ID.
-        /// </summary>
-        /// <param name="idProducto">ID del producto a buscar.</param>
-        /// <returns>Objeto entProducto si se encuentra, null en caso contrario.</returns>
+        
         public entProducto BuscarProducto(int idProducto)
         {
             entProducto p = null;
@@ -85,11 +78,7 @@ namespace CapaDatos
             return p;
         }
 
-        /// <summary>
-        /// Inserta un nuevo producto en la base de datos.
-        /// </summary>
-        /// <param name="p">Objeto entProducto a insertar.</param>
-        /// <returns>true si se inserta correctamente, false en caso contrario.</returns>
+
         public bool InsertarProducto(entProducto p)
         {
             bool insertar = false;
@@ -107,7 +96,7 @@ namespace CapaDatos
                     cn.Open();
 
                     int i = cmd.ExecuteNonQuery();
-                    insertar = i > 0; // Si se afectaron filas, se considera que se insertó correctamente.
+                    insertar = i > 0; 
                 }
             }
             return insertar;
@@ -136,7 +125,7 @@ namespace CapaDatos
                     cn.Open();
 
                     int i = cmd.ExecuteNonQuery();
-                    editar = i > 0; // Si se afectaron filas, se considera que se editó correctamente.
+                    editar = i > 0; 
                 }
             }
             return editar;
@@ -159,7 +148,7 @@ namespace CapaDatos
                     cn.Open();
 
                     int i = cmd.ExecuteNonQuery();
-                    eliminar = i > 0; // Si se afectaron filas, se considera que se eliminó correctamente.
+                    eliminar = i > 0; 
                 }
             }
             return eliminar;
