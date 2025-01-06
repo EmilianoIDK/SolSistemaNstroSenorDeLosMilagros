@@ -11,8 +11,9 @@
     <div class="card">
         <div class="card-header">Formulario</div>
         <div class="card-body card-block">
-            <form action="Editar" method="post" class="">
-           
+            <form action="@Url.Action("Editar", "Cliente")" method="post" class="">
+
+                <!-- Nombres -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -22,6 +23,7 @@
                     </div>
                 </div>
 
+                <!-- Apellidos -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -31,6 +33,7 @@
                     </div>
                 </div>
 
+                <!-- DNI -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -40,6 +43,7 @@
                     </div>
                 </div>
 
+                <!-- Teléfono -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -49,6 +53,7 @@
                     </div>
                 </div>
 
+                <!-- Correo Electrónico -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -58,14 +63,15 @@
                     </div>
                 </div>
 
-                
-
+                <!-- Botones de acción -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-sm">
                         <i class="fa fa-dot-circle-o"></i> Aceptar
                     </button>
                     <button type="reset">
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Cliente")"><i class="fa fa-ban"></i> Cancelar</a>
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Cliente")">
+                            <i class="fa fa-ban"></i> Cancelar
+                        </a>
                     </button>
                 </div>
             </form>
