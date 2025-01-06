@@ -5,13 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lista de Productos</h2>
+<div class="col-md-12">
+    <section class="welcome p-t-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="title-4">
+                        Lista de
+                        <span>Productos</span>
+                    </h1>
+                    <hr class="line-seprate">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="table-data__tool">
+        <div class="table-data__tool-left">
 
-<div class="table-data__tool">
-    <div class="table-data__tool-right">
-        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-            <a class="au-btn au-btn-icon au-btn--green au-btn--small" href="@Url.Action("Insertar", "Producto")"><i class="zmdi zmdi-plus"></i>Agregar Producto</a>
-        </button>
+        </div>
+        <div class="table-data__tool-right">
+            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                <a class="au-btn au-btn-icon au-btn--green au-btn--small" href="@Url.Action("Insertar","Producto")"><i class="zmdi zmdi-plus"></i>agregar Producto</a>
+            </button>
+        </div>
     </div>
 </div>
 
