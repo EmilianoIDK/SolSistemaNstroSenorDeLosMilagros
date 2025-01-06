@@ -9,18 +9,25 @@ namespace CapaDatos
     public class datProducto
     {
         #region Singleton
-        private static readonly datProducto _instancia = new datProducto();
+        private static readonly datProducto UnicaInstancia = new datProducto();
 
-        public static datProducto Instancia => _instancia;
+        public static datProducto Instancia
+        {
+            get
+            {
+                return datProducto.UnicaInstancia;
+            }
+        }
         #endregion Singleton
 
-     
+        #region Metodos CRUD
+
         public List<entProducto> ListarProductos()
         {
             List<entProducto> lista = new List<entProducto>();
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                using (SqlCommand cmd = new SqlCommand("spListarProductos", cn))
+                using (SqlCommand cmd = new SqlCommand("spListarProducto", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cn.Open();
@@ -33,8 +40,8 @@ namespace CapaDatos
                                 idProducto = Convert.ToInt32(dr["idProducto"]),
                                 nombre = Convert.ToString(dr["nombre"]),
                                 marca = Convert.ToString(dr["marca"]),
-                                cantidad = Convert.ToInt32(dr["cantidad"]),
                                 precio = Convert.ToDecimal(dr["precio"]),
+                                cantidad = Convert.ToInt32(dr["cantidad"]),
                                 vencimiento = Convert.ToString(dr["vencimiento"]),
                                 estado = Convert.ToBoolean(dr["estado"])
                             };
@@ -46,112 +53,135 @@ namespace CapaDatos
             return lista;
         }
 
-        
+
         public entProducto BuscarProducto(int idProducto)
         {
+            SqlCommand cmd = null;
             entProducto p = null;
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("spBuscarProducto", cn))
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spBuscarProducto", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            p = new entProducto
-                            {
-                                idProducto = Convert.ToInt32(dr["idProducto"]),
-                                nombre = Convert.ToString(dr["nombre"]),
-                                marca = Convert.ToString(dr["marca"]),
-                                cantidad = Convert.ToInt32(dr["cantidad"]),
-                                precio = Convert.ToDecimal(dr["precio"]),
-                                vencimiento = Convert.ToString(dr["vencimiento"]),
-                                estado = Convert.ToBoolean(dr["estado"])
-                            };
-                        }
-                    }
+                    p = new entProducto();
+                    p.idProducto = Convert.ToInt32(dr["idProducto"]);
+                    p.nombre = Convert.ToString(dr["nombre"]);
+                    p.marca = Convert.ToString(dr["marca"]);
+                    p.precio = Convert.ToDecimal(dr["precio"]);
+                    p.cantidad = Convert.ToInt32(dr["cantidad"]);
+                    p.vencimiento = Convert.ToString(dr["vencimiento"]);
+                    p.estado = Convert.ToBoolean(dr["estado"]);
                 }
+                cn.Close();
             }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
             return p;
         }
 
-
-        public bool InsertarProducto(entProducto p)
+        // Método para eliminar un empleado
+        public Boolean EliminarProducto(int idProducto)
         {
-            bool insertar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            SqlCommand cmd = null;
+
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("spInsertarProducto", cn))
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
-                    cmd.Parameters.AddWithValue("@prmMarca", p.marca);
-                    cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
-                    cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
-                    cmd.Parameters.AddWithValue("@prmVencimiento", p.vencimiento);
-                    cmd.Parameters.AddWithValue("@prmEstado", p.estado);
-                    cn.Open();
-
-                    int i = cmd.ExecuteNonQuery();
-                    insertar = i > 0; 
-                }
-            }
-            return insertar;
-        }
-
-        /// <summary>
-        /// Edita un producto existente en la base de datos.
-        /// </summary>
-        /// <param name="p">Objeto entProducto con los nuevos datos.</param>
-        /// <returns>true si se edita correctamente, false en caso contrario.</returns>
-        public bool EditarProducto(entProducto p)
-        {
-            bool editar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
-            {
-                using (SqlCommand cmd = new SqlCommand("spEditarProducto", cn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@prmidProducto", p.idProducto);
-                    cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
-                    cmd.Parameters.AddWithValue("@prmMarca", p.marca);
-                    cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
-                    cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
-                    cmd.Parameters.AddWithValue("@prmVencimiento", p.vencimiento);
-                    cmd.Parameters.AddWithValue("@prmEstado", p.estado);
-                    cn.Open();
-
-                    int i = cmd.ExecuteNonQuery();
-                    editar = i > 0; 
-                }
-            }
-            return editar;
-        }
-
-        /// <summary>
-        /// Elimina un producto por su ID.
-        /// </summary>
-        /// <param name="idProducto">ID del producto a eliminar.</param>
-        /// <returns>true si se elimina correctamente, false en caso contrario.</returns>
-        public bool EliminarProducto(int idProducto)
-        {
-            bool eliminar = false;
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
-            {
-                using (SqlCommand cmd = new SqlCommand("spEliminarProducto", cn))
-                {
+                    cmd = new SqlCommand("spEliminarProducto", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@prmidProducto", idProducto);
+
                     cn.Open();
 
-                    int i = cmd.ExecuteNonQuery();
-                    eliminar = i > 0; 
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    return filasAfectadas > 0;
                 }
             }
-            return eliminar;
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
         }
+
+        // Método para editar un empleado
+        public Boolean EditarProducto(entProducto producto)
+        {
+            SqlCommand cmd = null;
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    cmd = new SqlCommand("psEditarProducto", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prmidProducto", producto.idProducto);
+                    cmd.Parameters.AddWithValue("@prmNombre", producto.nombre);
+                    cmd.Parameters.AddWithValue("@prmMarca", producto.marca);
+                    cmd.Parameters.AddWithValue("@prmPrecio", producto.precio);
+                    cmd.Parameters.AddWithValue("@prmCantidad", producto.cantidad);
+                    cmd.Parameters.AddWithValue("@prmvencimiento", producto.vencimiento);
+
+                    cn.Open();
+
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    return filasAfectadas > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+        // Método para insertar un empleado
+        public Boolean InsertarProducto(entProducto p)
+        {
+            SqlCommand cmd = null;
+            Boolean Insertar = false;
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spInsertarProducto", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@prmNombre", p.nombre);
+                cmd.Parameters.AddWithValue("@prmMarca", p.marca);
+                cmd.Parameters.AddWithValue("@prmPrecio", p.precio);
+                cmd.Parameters.AddWithValue("@prmCantidad", p.cantidad);
+                cmd.Parameters.AddWithValue("@prmvencimiento", p.vencimiento);
+                cn.Open();
+
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    Insertar = true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return Insertar;
+        }
+
+        #endregion Metodos CRUD
+
     }
 }
+

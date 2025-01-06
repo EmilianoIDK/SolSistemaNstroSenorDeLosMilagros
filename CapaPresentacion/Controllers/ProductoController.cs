@@ -47,16 +47,16 @@ namespace CapaPresentacion.Controllers
         {
             try
             {
-                bool inserto = false;
-                entProducto p = new entProducto();
-                p.nombre = Convert.ToString(formulario["nombre"]);
-                p.marca = Convert.ToString(formulario["marca"]);
-                p.precio = Convert.ToDecimal(formulario["precio"]);
-                p.cantidad = Convert.ToInt32(formulario["cantidad"]);
-                p.vencimiento = Convert.ToString(formulario["vencimiento"]);
-                p.estado = Convert.ToBoolean(formulario["estado"]);
+                Boolean inserto = false;
+                entProducto e = new entProducto();
+                e.nombre = Convert.ToString(formulario["txtNombre"]);
+                e.marca = Convert.ToString(formulario["txtMarca"]);
+                e.precio = Convert.ToDecimal(formulario["txtPrecio"]);
+                e.cantidad = Convert.ToInt32(formulario["txtCantidad"]);
+                e.vencimiento = Convert.ToString(formulario["txtVencimiento"]);
 
-                inserto = logProducto.Instancia.InsertarProducto(p);
+
+                inserto = logProducto.Instancia.InsertarProducto(e);
                 if (inserto)
                 {
                     return RedirectToAction("Lista", "Producto");

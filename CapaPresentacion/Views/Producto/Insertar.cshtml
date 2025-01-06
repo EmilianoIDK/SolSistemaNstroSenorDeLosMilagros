@@ -11,93 +11,59 @@
     <div class="card">
         <div class="card-header">Formulario</div>
         <div class="card-body card-block">
-            <form action="@Url.Action("Insertar", "Producto")" method="post">
+            <form action="Insertar" method="post" class="">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtNombre" name="txtNombre" placeholder="Nombre Producto" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="txtMarca" name="txtMarca" placeholder="Marca" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="" id="txtPrecio" name="txtPrecio" placeholder="Precio" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-mobile-phone"></i>
+                        </div>
+                        <input type="number" step="any" id="txtCantidad" name="txtCantidad" placeholder="Cantidad" class="form-control" required>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <i class='fa fa-tag'></i>
+                            <i class="fa fa-mail-forward"></i>
                         </div>
-                        <input type='text' id='txtNombre' name='nombre' placeholder='Nombre del Producto' class='form-control' required />
-                        </ div >
+                        <input type="date" id="txtVencimiento" name="txtVencimiento" placeholder="Vencimiento" class="form-control" required>
+                    </div>
+                </div>
 
-                        </ div >
-
-                        <!-- Marca -->
-                        <
-                        divclass='form-group'>
-                        <
-                        divclass='input-group'>
-                        <
-                        divclass='input-group-addon'>
-                        <
-                        iclass='fa fa-industry'></i >
-                        <
-                        / div >
-                        <
-                        input type='text' id='txtMarca' name='marca' placeholder='Marca' requiredclass='form-control'/>
-                        <
-                        / div >
-                        <
-                        / div >
-
-                        <!-- Precio -->
-                        <
-                        divclass='form-group'>
-                        <
-                        divclass='input-group'>
-                        <
-                        divclass='input-group-addon'>
-                        <
-                        iclass='fa fa-dollar'></i >
-                        <
-                        / div >
-                        <
-                        input type='number' id='txtPrecio' name='precio' placeholder='Precio' step='.01'requiredclass='form-control'/>
-                        <
-                        / div >
-                        <
-                        / div >
-
-                        <!-- Cantidad -->
-                        <
-                        divclass='form-group'>
-                        <
-                        divclass='input-group'>
-                        <
-                        divclass='input-group-addon'>
-                        <
-                        iclass='fa fa-cubes'></i >
-                        <
-                        / div >
-                        <
-                        input type='number' id='txtCantidad' name='cantidad' placeholder='Cantidad en Stock'requiredclass='form-control'/>
-                        <
-                        / div >
-                        <
-                        / div >
-
-                        <!-- Fecha de Vencimiento -->
-                        <
-                        divclass='form-group'>
-                        @Html.Label("Fecha de Vencimiento:")
-                        @Html.TextBoxFor(m => m.vencimiento, new { @class = "form-control", type = "date", required = "required" })
-                        /
-                        div >
-
-                        <!-- Estado del producto -->
-                        @Html.Label("Estado:")
-                        @Html.CheckBoxFor(m => m.estado) Activo
-
-                        <!-- Botones -->
-                        @Html.Button("Agregar Producto", new { @class = "btn btn-success btn-sm" })
-                        @Html.ActionLink("Cancelar", "Lista", "Producto", null, new { @class = "btn btn-danger btn-sm" })
-                        /
-                        form >
-                        /
-                        card-body >
-                        /
-                        card >
-                        /
-                        col-lg-6 >
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Aceptar
+                    </button>
+                    <button type="reset">
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Producto")"><i class="fa fa-ban"></i> Cancelar</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
