@@ -62,35 +62,46 @@ namespace CapaDatos
         // Método para buscar un cliente por ID
         public entCliente BuscarCliente(int idCliente)
         {
-            SqlCommand cmd = null;
             entCliente c = null;
-            try
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spBuscarCliente", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmidCliente", idCliente);
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlCommand cmd = new SqlCommand("spBuscarCliente", cn))
                 {
-                    c = new entCliente();
-                    c.idCliente = Convert.ToInt32(dr["idCliente"]);
-                    c.dni = Convert.ToInt32(dr["dni"]);
-                    c.nombres = Convert.ToString(dr["nombres"]);
-                    c.apellidos = Convert.ToString(dr["apellidos"]);
-                    c.telefono = Convert.ToString(dr["telefono"]);
-                    c.email = Convert.ToString(dr["correo"]);
-                    c.estado = Convert.ToBoolean(dr["estado"]);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@prmidCliente", SqlDbType.Int).Value = idCliente;
+
+                    try
+                    {
+                        cn.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                c = new entCliente
+                                {
+                                    idCliente = Convert.ToInt32(dr["idCliente"]),
+                                    dni = Convert.ToInt32(dr["dni"]),
+                                    nombres = Convert.ToString(dr["nombres"]),
+                                    apellidos = Convert.ToString(dr["apellidos"]),
+                                    telefono = Convert.ToString(dr["telefono"]),
+                                    email = Convert.ToString(dr["correo"]),
+                                    estado = Convert.ToBoolean(dr["estado"])
+                                };
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        // Manejar la excepción según sea necesario
+                        throw new Exception("Error al buscar el cliente", ex);
+                    }
                 }
-                cn.Close();
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
+
             return c;
         }
+
 
         // Método para insertar un cliente
         public Boolean InsertarCliente(entCliente idCliente)

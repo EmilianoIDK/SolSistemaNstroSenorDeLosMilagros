@@ -11,7 +11,13 @@
     <div class="card">
         <div class="card-header">Formulario</div>
         <div class="card-body card-block">
+            @if (ViewBag.mensaje != null)
+            {
+                <div class="alert alert-danger">@ViewBag.mensaje</div>
+            }
             <form action="@Url.Action("Editar", "Cliente")" method="post" class="">
+                <!-- Campo oculto para el ID del cliente -->
+                @Html.HiddenFor(m => m.idCliente)
 
                 <!-- Nombres -->
                 <div class="form-group">
@@ -49,7 +55,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-mobile-phone"></i>
                         </div>
-                        <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" class="form-control" value="@Model.telefono" required>
+                        <input type="text" id="txtTelefono" name="txtTelefono" placeholder="Teléfono" class="form-control" value="@Model.telefono">
                     </div>
                 </div>
 
@@ -68,11 +74,7 @@
                     <button type="submit" class="btn btn-success btn-sm">
                         <i class="fa fa-dot-circle-o"></i> Aceptar
                     </button>
-                    <button type="reset">
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Cliente")">
-                            <i class="fa fa-ban"></i> Cancelar
-                        </a>
-                    </button>
+                    <a href="@Url.Action("Lista", "Cliente")" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Cancelar</a>
                 </div>
             </form>
         </div>

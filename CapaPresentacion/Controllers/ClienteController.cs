@@ -12,7 +12,7 @@ namespace CapaPresentacion.Controllers
     {
         [Filtro.SesionIntranetController]
         [HttpGet]
-        //Lista 
+        // Lista 
         public ActionResult Lista(string msg)
         {
             try
@@ -29,7 +29,33 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        //Insertar
+        // Buscar Cliente por ID
+        public ActionResult Buscar(int idCliente)
+        {
+            try
+            {
+                // Buscar el cliente utilizando el logCliente
+                entCliente cliente = logCliente.Instancia.BuscarCliente(idCliente);
+
+                // Verificar si se encontró el cliente
+                if (cliente != null)
+                {
+                    return View("Detalles", cliente); // Muestra los detalles del cliente encontrado
+                }
+                else
+                {
+                    return RedirectToAction("Lista", "Cliente", new { msg = "Cliente no encontrado." });
+                }
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Lista", "Cliente", new { msg = e.Message });
+            }
+        }
+
+        [Filtro.SesionIntranetController]
+        [HttpGet]
+        // Insertar
         public ActionResult Insertar(string msg)
         {
             try
@@ -77,7 +103,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        //Editar
+        // Editar
         public ActionResult Editar(int idCliente)
         {
             try
@@ -126,25 +152,27 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        //Eliminar
+        // Eliminar
         public ActionResult Eliminar(int idCliente)
         {
             try
             {
                 bool elimino = logCliente.Instancia.EliminarCliente(idCliente);
+
                 if (elimino)
                 {
                     return RedirectToAction("Lista", "Cliente");
                 }
-                else
-                {
-                    return View();
-                }
+
+                // Si no se eliminó, puedes redirigir a la lista con un mensaje o manejarlo de otra manera.
+                return RedirectToAction("Lista", "Cliente", new { msg = "No se pudo eliminar el cliente." });
+
             }
             catch (Exception e)
             {
                 return RedirectToAction("Lista", "Cliente", new { msg = e.Message });
             }
         }
+
     }
 }
