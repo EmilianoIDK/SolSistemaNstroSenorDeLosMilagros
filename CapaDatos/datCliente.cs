@@ -93,7 +93,7 @@ namespace CapaDatos
                     }
                     catch (SqlException ex)
                     {
-                        // Manejar la excepción según sea necesario
+
                         throw new Exception("Error al buscar el cliente", ex);
                     }
                 }
