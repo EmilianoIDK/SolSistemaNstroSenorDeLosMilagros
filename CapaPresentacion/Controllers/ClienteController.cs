@@ -12,7 +12,7 @@ namespace CapaPresentacion.Controllers
     {
         [Filtro.SesionIntranetController]
         [HttpGet]
-        // Lista
+        //Lista 
         public ActionResult Lista(string msg)
         {
             try
@@ -29,7 +29,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        // Insertar
+        //Insertar
         public ActionResult Insertar(string msg)
         {
             try
@@ -45,25 +45,29 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpPost]
-        public ActionResult Insertar(entCliente cliente)
+        public ActionResult Insertar(FormCollection formulario)
         {
             try
             {
-                if (ModelState.IsValid)
+                bool inserto = false;
+                entCliente c = new entCliente();
+                c.dni = Convert.ToInt32(formulario["txtDni"]);
+                c.nombres = Convert.ToString(formulario["txtNombres"]);
+                c.apellidos = Convert.ToString(formulario["txtApellidos"]);
+                c.celular = Convert.ToString(formulario["txtCelular"]);
+                c.telefono = Convert.ToString(formulario["txtTelefono"]);
+                c.email = Convert.ToString(formulario["txtEmail"]);
+                c.estado = Convert.ToBoolean(formulario["estado"]);
+
+                inserto = logCliente.Instancia.InsertarCliente(c);
+                if (inserto)
                 {
-                    bool inserto = logCliente.Instancia.InsertarCliente(cliente);
-                    if (inserto)
-                    {
-                        TempData["Mensaje"] = "Cliente insertado exitosamente.";
-                        return RedirectToAction("Lista", "Cliente");
-                    }
-                    else
-                    {
-                        TempData["Mensaje"] = "Error al insertar el cliente.";
-                        return View(cliente);
-                    }
+                    return RedirectToAction("Lista", "Cliente");
                 }
-                return View(cliente);
+                else
+                {
+                    return View(formulario);
+                }
             }
             catch (Exception ex)
             {
@@ -73,18 +77,13 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        // Editar (GET)
+        //Editar
         public ActionResult Editar(int idCliente)
         {
             try
             {
-                entCliente cliente = logCliente.Instancia.BuscarCliente(idCliente);
-                if (cliente == null)
-                {
-                    TempData["Mensaje"] = "Cliente no encontrado.";
-                    return RedirectToAction("Lista", "Cliente");
-                }
-                return View(cliente);
+                entCliente c = logCliente.Instancia.BuscarCliente(idCliente);
+                return View(c);
             }
             catch (Exception e)
             {
@@ -94,25 +93,30 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpPost]
-        public ActionResult Editar(entCliente cliente)
+        public ActionResult Editar(FormCollection formulario)
         {
             try
             {
-                if (ModelState.IsValid)
+                bool actualizo = false;
+                entCliente c = new entCliente();
+                c.idCliente = Convert.ToInt32(formulario["txtIdCliente"]);
+                c.dni = Convert.ToInt32(formulario["txtDni"]);
+                c.nombres = Convert.ToString(formulario["txtNombres"]);
+                c.apellidos = Convert.ToString(formulario["txtApellidos"]);
+                c.celular = Convert.ToString(formulario["txtCelular"]);
+                c.telefono = Convert.ToString(formulario["txtTelefono"]);
+                c.email = Convert.ToString(formulario["txtEmail"]);
+                c.estado = Convert.ToBoolean(formulario["estado"]);
+
+                actualizo = logCliente.Instancia.EditarCliente(c);
+                if (actualizo)
                 {
-                    bool actualizo = logCliente.Instancia.EditarCliente(cliente);
-                    if (actualizo)
-                    {
-                        TempData["Mensaje"] = "Cliente actualizado exitosamente.";
-                        return RedirectToAction("Lista", "Cliente");
-                    }
-                    else
-                    {
-                        TempData["Mensaje"] = "Error al actualizar el cliente.";
-                        return View(cliente);
-                    }
+                    return RedirectToAction("Lista", "Cliente");
                 }
-                return View(cliente);
+                else
+                {
+                    return View(formulario);
+                }
             }
             catch (Exception e)
             {
@@ -122,7 +126,7 @@ namespace CapaPresentacion.Controllers
 
         [Filtro.SesionIntranetController]
         [HttpGet]
-        // Eliminar
+        //Eliminar
         public ActionResult Eliminar(int idCliente)
         {
             try
@@ -130,18 +134,15 @@ namespace CapaPresentacion.Controllers
                 bool elimino = logCliente.Instancia.EliminarCliente(idCliente);
                 if (elimino)
                 {
-                    TempData["Mensaje"] = "Cliente eliminado exitosamente.";
                     return RedirectToAction("Lista", "Cliente");
                 }
                 else
                 {
-                    TempData["Mensaje"] = "No se pudo eliminar el cliente.";
-                    return RedirectToAction("Lista", "Cliente");
+                    return View();
                 }
             }
             catch (Exception e)
             {
-                TempData["Mensaje"] = "Ocurrió un error al eliminar el cliente.";
                 return RedirectToAction("Lista", "Cliente", new { msg = e.Message });
             }
         }

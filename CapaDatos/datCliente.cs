@@ -143,7 +143,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("@prmCorreo", idCliente.email);
                     cn.Open();
                     int filasAfectadas = cmd.ExecuteNonQuery();
-                    return filasAfectadas > 0; // Retorna true si se actualizó correctamente
+                    return filasAfectadas > 0; 
                 }
             }
             catch (SqlException ex)

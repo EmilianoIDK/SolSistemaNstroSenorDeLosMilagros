@@ -204,8 +204,8 @@ namespace CapaDatos
             Boolean Insertar = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); 
-                cmd = new SqlCommand("spInsertarEmpleado", cn);  
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("spInsertarEmpleado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@prmnombres", e.nombres);
                 cmd.Parameters.AddWithValue("@prmapellidos", e.apellidos);
