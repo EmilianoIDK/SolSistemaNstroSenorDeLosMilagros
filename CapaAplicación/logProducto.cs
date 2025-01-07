@@ -65,8 +65,9 @@ namespace CapaAplicación
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al editar el producto", ex);
             }
+
         }
 
         public bool EliminarProducto(int idProducto)

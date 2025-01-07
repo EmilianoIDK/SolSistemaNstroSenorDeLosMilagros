@@ -113,7 +113,7 @@ namespace CapaDatos
             }
         }
 
-        // Método para editar un empleado
+        // Método para editar un producto
         public Boolean EditarProducto(entProducto producto)
         {
             SqlCommand cmd = null;
@@ -143,7 +143,8 @@ namespace CapaDatos
                 throw ex;
             }
         }
-        // Método para insertar un empleado
+
+        // Método para insertar un producto
         public Boolean InsertarProducto(entProducto p)
         {
             SqlCommand cmd = null;

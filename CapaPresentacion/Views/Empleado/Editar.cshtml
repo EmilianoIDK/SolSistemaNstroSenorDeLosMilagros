@@ -5,72 +5,89 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar</h2>
+<h2>Editar Empleado</h2>
 
 <div class="col-lg-6">
     <div class="card">
         <div class="card-header">Formulario</div>
         <div class="card-body card-block">
-            <form action="Editar" method="post" class="">
+            @if (ViewBag.mensaje != null)
+            {
+                <div class="alert alert-danger">@ViewBag.mensaje</div>
+            }
+            <form action="@Url.Action("Editar", "Empleado")" method="post" class="">
+                @Html.HiddenFor(m => m.idEmpleado) <!-- Campo oculto para enviar el ID -->
+                <!-- Nombres -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" id="txtNombres" name="txtNombres" placeholder="Nombres" class="form-control" value="@Model.nombres">
+                        <input type="text" id="txtNombres" name="txtNombres" placeholder="Nombres" class="form-control" value="@Model.nombres" required>
                     </div>
                 </div>
+
+                <!-- Apellidos -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" id="txtApellidos" name="txtApellidos" placeholder="Apellidos" class="form-control" value="@Model.apellidos">
+                        <input type="text" id="txtApellidos" name="txtApellidos" placeholder="Apellidos" class="form-control" value="@Model.apellidos" required>
                     </div>
                 </div>
+
+                <!-- DNI -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-asterisk"></i>
                         </div>
-                        <input type="number" id="txtDni" name="txtDni" placeholder="DNI" class="form-control" value="@Model.documentoIdentidad">
+                        <input type="number" id="txtDni" name="txtDni" placeholder="DNI" class="form-control" value="@Model.documentoIdentidad" required>
                     </div>
                 </div>
+
+                <!-- Celular -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-mobile-phone"></i>
                         </div>
-                        <input type="number" id="txtCelular" name="txtCelular" placeholder="Celular" class="form-control" value="@Model.celular">
+                        <input type="number" id="txtCelular" name="txtCelular" placeholder="Celular" class="form-control" value="@Model.celular" required>
                     </div>
                 </div>
 
+                <!-- Correo Electrónico -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-mail-forward"></i>
                         </div>
-                        <input type="email" id="txtCorreo" name="txtCorreo" placeholder="Correo" class="form-control" value="@Model.correo">
+                        <input type="email" id="txtCorreo" name="txtCorreo" placeholder="Correo Electrónico" class="form-control" value="@Model.correo" required>
                     </div>
                 </div>
+
+                <!-- Usuario -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" class="form-control" value="@Model.usuario">
+                        <input type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" class="form-control" value="@Model.usuario" required>
                     </div>
                 </div>
 
+                <!-- Contraseña -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-asterisk"></i>
                         </div>
-                        <input type="password" id="txtContrasena" name="txtContrasena" placeholder="Contraseña" class="form-control" value="@Model.contrasena">
+                        <input type="password" id="txtContrasena" name="txtContrasena" placeholder="Contraseña (dejar vacío si no desea cambiar)" class="form-control">
                     </div>
                 </div>
 
+                <!-- Cargo -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -80,13 +97,12 @@
                     </div>
                 </div>
 
+                <!-- Botones de acción -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-sm">
                         <i class="fa fa-dot-circle-o"></i> Aceptar
                     </button>
-                    <button type="reset">
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("Lista", "Empleado")"><i class="fa fa-ban"></i> Cancelar</a>
-                    </button>
+                    <a href="@Url.Action("Lista", "Empleado")" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Cancelar</a>
                 </div>
             </form>
         </div>

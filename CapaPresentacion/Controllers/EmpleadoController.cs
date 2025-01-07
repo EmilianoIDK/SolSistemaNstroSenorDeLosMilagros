@@ -76,56 +76,32 @@ namespace CapaPresentacion.Controllers
             }
         }
 
-        [Filtro.SesionIntranetController]
+        // Método GET para mostrar el formulario de edición
         [HttpGet]
-        public ActionResult Editar(int idEmpleado)
+        public ActionResult Editar(int id)
         {
-            try
+            var empleado = logEmpleado.Instancia.BuscarEmpleado(id);
+            if (empleado == null)
             {
-                entEmpleado e = new entEmpleado();
-                e = logEmpleado.Instancia.BuscarEmpleado(idEmpleado);
-                return View(e);
+                return HttpNotFound();
             }
-            catch (Exception e)
-            {
-                return RedirectToAction("Lista", "Empleado", new { msg = e.Message });
-            }
+            return View(empleado);
         }
 
-        [Filtro.SesionIntranetController]
+        // Método POST para procesar la edición
         [HttpPost]
-        public ActionResult Editar(FormCollection formulario)
+        public ActionResult Editar(entEmpleado empleado)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Boolean inserto = false;
-                entEmpleado e = new entEmpleado();
-                e.idEmpleado = Convert.ToInt32(formulario["idEmpleado"]);
-                e.nombres = Convert.ToString(formulario["nombres"]);
-                e.apellidos = Convert.ToString(formulario["apellidos"]);
-                e.documentoIdentidad = Convert.ToString(formulario["documentoIdentidad"]);
-                e.celular = Convert.ToString(formulario["celular"]);
-                e.correo = Convert.ToString(formulario["correo"]);
-                e.usuario = Convert.ToString(formulario["usuario"]);
-                e.contrasena = Convert.ToString(formulario["contrasena"]);
-                e.cargo = Convert.ToString(formulario["cargo"]);
-                e.estado = Convert.ToBoolean(formulario["estado"]);
+                logEmpleado.Instancia.EditarEmpleado(empleado);
+                return RedirectToAction("Lista");
+            }
 
-                inserto = logEmpleado.Instancia.EditarEmpleado(e);
-                if (inserto)
-                {
-                    return RedirectToAction("Lista", "Empleado");
-                }
-                else
-                {
-                    return View(formulario);
-                }
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Lista", "Empleado", new { msg = e.Message });
-            }
+            ViewBag.Mensaje = "Por favor, corrige los errores."; // Mensaje opcional
+            return View(empleado); // Regresar a la vista con errores
         }
+
         [Filtro.SesionIntranetController]
         [HttpGet]
         public ActionResult Eliminar(int idEmpleado)
